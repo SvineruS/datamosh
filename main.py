@@ -58,5 +58,5 @@ if __name__ == "__main__":
             (1, 2.5),  # make effect on 1-2.5 seconds
             (6, 9)     # and 6-9 seconds of video
         ],
-        20000          # keyframe interval. big number = more glitches
+        20000          # keyframe interval. big number = longer glitches
     )
