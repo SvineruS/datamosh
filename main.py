@@ -25,7 +25,7 @@ def magic(effect_sec_list):
                 out_file.write(frame + END_FRAME_HEX)
                 continue
 
-            if not is_ifrime(frame):
+            if not is_iframe(frame):
                 out_file.write((frame + END_FRAME_HEX) * repeat_p_frames)
 
 
@@ -46,7 +46,7 @@ def is_need_effect_here(curr_sec, effect_sec_list):
     return any(start < curr_sec < end for start, end in effect_sec_list)
 
 
-def is_ifrime(frame):
+def is_iframe(frame):
     return frame[5:8] == I_FRAME_HEX
 
 
