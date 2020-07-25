@@ -2,6 +2,7 @@
 ## python3 script for datamoshing videos
 
 ![example](https://assets.rocketstock.com/uploads/2017/07/Datamosh-Cover-1000x576.jpg)
+[video example on youtube](https://youtu.be/4yXQb1KNgLI)
 
 
 ### requires:
@@ -17,4 +18,3 @@
  
 
 
-[video example on youtube](https://youtu.be/4yXQb1KNgLI)
