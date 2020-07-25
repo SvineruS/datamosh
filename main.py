@@ -3,19 +3,17 @@ import subprocess
 END_FRAME_HEX = b'00dc'
 I_FRAME_HEX = b'\x00\x01\xb0'
 
-
-repeat_p_frames = 2
 fps = 25
 
 
-def main(filename, effect_sec_list):
+def main(filename, effect_sec_list, p_frames_mult=1):
     # need avi
-    subprocess.call(f'ffmpeg -loglevel error -y -i {filename} -r {fps} temp1.avi', shell=True)
-    magic(effect_sec_list)
+    subprocess.call(f'ffmpeg -loglevel error -y -i {filename} -crf 0 -bf 0 -r {fps} temp1.avi', shell=True)
+    magic(effect_sec_list, p_frames_mult)
     subprocess.call(f'ffmpeg -loglevel error -y -i temp2.avi output.mp4', shell=True)
 
 
-def magic(effect_sec_list):
+def magic(effect_sec_list, p_frames_mult):
     # dont copy I frames and multiply P frames in specified seconds
     with open('temp1.avi', 'rb') as in_file, open('temp2.avi', 'wb') as out_file:
         frames = split_file(in_file, END_FRAME_HEX)
@@ -26,7 +24,7 @@ def magic(effect_sec_list):
                 continue
 
             if not is_iframe(frame):
-                out_file.write((frame + END_FRAME_HEX) * repeat_p_frames)
+                out_file.write((frame + END_FRAME_HEX) * p_frames_mult)
 
 
 def split_file(fp, marker, blocksize=4096):
@@ -57,5 +55,6 @@ if __name__ == "__main__":
         [
             (1, 2.5),  # make effect on 1-2.5 seconds
             (6, 9)     # and 6-9 seconds of video
-        ]
+        ],
+        2              # p frames multiplier. 1 - normal, big - weird  
     )
