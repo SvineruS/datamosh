@@ -8,9 +8,9 @@ repeat_p_frames = 2
 fps = 25
 
 
-def main(filename, effect_sec_list, keyframe_interval):
-    # need avi and +-big keyframe interval ("-g" option)
-    subprocess.call(f'ffmpeg -loglevel error -y -i {filename} -r {fps} -g {keyframe_interval} temp1.avi', shell=True)
+def main(filename, effect_sec_list):
+    # need avi
+    subprocess.call(f'ffmpeg -loglevel error -y -i {filename} -r {fps} temp1.avi', shell=True)
     magic(effect_sec_list)
     subprocess.call(f'ffmpeg -loglevel error -y -i temp2.avi output.mp4', shell=True)
 
@@ -57,6 +57,5 @@ if __name__ == "__main__":
         [
             (1, 2.5),  # make effect on 1-2.5 seconds
             (6, 9)     # and 6-9 seconds of video
-        ],
-        20000          # keyframe interval. big number = longer glitches
+        ]
     )
